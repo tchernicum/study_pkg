@@ -1,0 +1,22 @@
+<launch>
+  <node name="usb_cam" pkg="usb_cam" type="usb_cam_node" output="screen" >
+    <param name="video_device" value="/dev/video0" />
+    <param name="image_width" value="640" />
+    <param name="image_height" value="480" />
+    <param name="pixel_format" value="yuyv" />
+    <param name="color_format" value="yuv422p" />
+    <param name="camera_frame_id" value="usb_cam" />
+    <param name="io_method" value="mmap"/>
+  </node>
+  <arg name="show_image" default="false" />
+  <param name="show_image" value="$(arg show_image)" />
+  <group if="$(arg show_image)">
+    <node name="image_view" pkg="image_view" type="image_view" respawn="false" output="screen">
+      <remap from="image" to="/usb_cam/image_raw"/>
+      <param name="autosize" value="true" />
+    </node>
+  </group>
+  <node name="my_ocv_listen" pkg="study_pkg" type="cam_listener.py" output="screen" >
+      <remap from="image" to="/usb_cam/image_raw"/>
+  </node>
+</launch>
