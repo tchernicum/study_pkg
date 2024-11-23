@@ -13,7 +13,7 @@ import sys  # Импортируем библиотеку sys для работ�
 from apriltag_ros.msg import AprilTagDetectionArray
 
 err_pos_max    = 0.03
-err_pos_orient = 0.03
+err_orient_max = 0.03
 
 poses = [
     geometry_msgs.msg.Pose(),
@@ -61,22 +61,23 @@ def robot_planner():
 
 def check_pose_changed(poseid, pose_new):
     if (not poses[poseid]):
-        pass
-    pose_old = poses[poseid]
-    err_pos = map(lambda x,y: abs(x-y), pose_old[0], pose_new[0])
-    err_orient = map(lambda x,y: abs(x-y), pose_old[1], pose_new[1])
+        return True
+    pose_old   = poses[poseid]
+    err_pos    = map(lambda x: abs(getattr(pose_old.position,x)-getattr(pose_new.position,x)),      ['x','y','z'])
+    err_orient = map(lambda x: abs(getattr(pose_old.orientation,x)-getattr(pose_new.orientation,x)), ['x','y','z','w'])
     if max(err_pos) >= err_pos_max:
-        pass
+        return True
     if max(err_orient) >= err_orient_max:
-        pass
+        return True
+    return False
 
 def tag_callback(detection_msg):
     print(poses)
     for det in detection_msg.detections:
         print(f"pose id {det.id[0]} found pose {det.pose.pose}")
         pose_id = det.id[0]
-        if check_pose_changed(pose_id, det.pose.pose):
-            poses[pose_id] = det.pose.pose
+        if check_pose_changed(pose_id, det.pose.pose.pose):
+            poses[pose_id] = det.pose.pose.pose
             robot_planner()
 
 #rospy.init_node('tag_listener')
