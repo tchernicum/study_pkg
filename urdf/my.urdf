@@ -1,0 +1,264 @@
+<robot name="arm1" xmlns:xacro="http://wiki.ros.org/xacro">
+    <link name="base_link">
+        <visual>
+            <geometry>
+                <cylinder radius="100" length="50"/>
+            </geometry>
+            <material name="gray">
+                <color rgba="0.5 0.5 0.5 1"/>
+            </material>
+        </visual>
+        <collision>
+            <geometry>
+                <cylinder radius="100" length="50"/>
+            </geometry>
+        </collision>
+    </link>
+    <joint name="joint1" type="revolute">
+        <parent link="base_link"/>
+        <child link="link1"/>
+        <origin xyz="0 0 25"/>
+        <axis xyz="0 0 1"/>
+        <limit effort="5" velocity="2.0" lower="0" upper="6.28"/>
+    </joint>
+    <link name="link1">
+        <visual>
+            <origin xyz="0 0 75"/>
+            <geometry>
+                <cylinder radius="70" length="150"/>
+            </geometry>
+            <material name="gray2">
+                <color rgba="0.5 0.3 0.5 1"/>
+            </material>
+        </visual>
+        <collision>
+            <origin xyz="0 0 75"/>
+            <geometry>
+                <cylinder radius="70" length="150"/>
+            </geometry>
+        </collision>
+    </link>
+    <joint name="joint2" type="revolute">
+        <parent link="link1"/>
+        <child link="link2"/>
+        <origin xyz="0 0 150"/>
+        <axis xyz="0 0 1"/>
+        <limit effort="5" velocity="2.0" lower="0" upper="6.28"/>
+    </joint>
+    <link name="link2">
+        <visual>
+            <origin xyz="0 0 75"/>
+            <geometry>
+                <cylinder radius="70" length="150"/>
+            </geometry>
+            <material name="gray3">
+                <color rgba="0.5 0.1 0.5 1"/>
+            </material>
+        </visual>
+        <collision>
+            <origin xyz="0 0 75"/>
+            <geometry>
+                <cylinder radius="70" length="150"/>
+            </geometry>
+        </collision>
+    </link>
+    <joint name="joint3" type="revolute">
+        <parent link="link2"/>
+        <child link="link3"/>
+        <origin xyz="0 0 150" rpy="0.79 0 0"/>
+        <axis xyz="1 0 0"/>
+        <limit effort="5" velocity="2.0" lower="-0.79" upper="0.78"/>
+    </joint>
+    <link name="link3">
+        <visual>
+            <origin xyz="0 0 150"/>
+            <geometry>
+                <box size="120 120 300"/>
+            </geometry>
+            <material name="blue">
+                <color rgba="0 0 1 1"/>
+            </material>
+        </visual>
+        <collision>
+            <origin xyz="0 0 150"/>
+            <geometry>
+                <box size="120 120 300"/>
+            </geometry>
+        </collision>
+    </link>
+    <joint name="joint4" type="revolute">
+        <parent link="link3"/>
+        <child link="link4"/>
+        <origin xyz="0 0 300" rpy="0.78 0 0"/>
+        <axis xyz="1 0 0"/>
+        <limit effort="5" velocity="2.0" lower="-0.79" upper="0.78"/>
+    </joint>
+    <link name="link4">
+        <visual>
+            <origin xyz="0 0 50"/>
+            <geometry>
+                <cylinder radius="50" length="100"/>
+            </geometry>
+            <material name="blue1">
+                <color rgba="0.2 0 1 1"/>
+            </material>
+        </visual>
+        <collision>
+            <origin xyz="0 0 50"/>
+            <geometry>
+                <cylinder radius="50" length="100"/>
+            </geometry>
+        </collision>
+    </link>
+    <joint name="joint5" type="revolute">
+        <parent link="link4"/>
+        <child link="link5"/>
+        <origin xyz="0 0 100"/>
+        <axis xyz="0 0 1"/>
+        <limit effort="5" velocity="2.0" lower="0" upper="6.28"/>
+    </joint>
+    <link name="link5">
+        <visual>
+            <origin xyz="0 0 50"/>
+            <geometry>
+                <cylinder radius="50" length="100"/>
+            </geometry>
+            <material name="blue2">
+                <color rgba="0.4 0 1 1"/>
+            </material>
+        </visual>
+        <collision>
+            <origin xyz="0 0 50"/>
+            <geometry>
+                <cylinder radius="50" length="100"/>
+            </geometry>
+        </collision>
+    </link>
+    <joint name="joint6" type="revolute">
+        <parent link="link5"/>
+        <child link="link6"/>
+        <origin xyz="0 0 100"/>
+        <axis xyz="0 0 1"/>
+        <limit effort="5" velocity="2.0" lower="0" upper="6.28"/>
+    </joint>
+    <link name="link6">
+        <visual>
+            <origin xyz="0 0 40"/>
+            <geometry>
+                <box size="80 80 80"/>
+            </geometry>
+            <material name="blue3">
+                <color rgba="0.6 0 1 1"/>
+            </material>
+        </visual>
+        <collision>
+            <origin xyz="0 0 40"/>
+            <geometry>
+                <box size="80 80 80"/>
+            </geometry>
+        </collision>
+    </link>
+    <joint name="joint7" type="revolute">
+        <parent link="link6"/>
+        <child link="link7"/>
+        <origin xyz="0 0 80"/>
+        <axis xyz="0 0 1"/>
+        <limit effort="5" velocity="2.0" lower="0" upper="6.28"/>
+    </joint>
+    <link name="link7">
+        <visual>
+            <origin xyz="0 0 35"/>
+            <geometry>
+                <cylinder radius="40" length="70"/>
+            </geometry>
+            <material name="blue4">
+                <color rgba="0.8 0 1 1"/>
+            </material>
+        </visual>
+        <collision>
+            <origin xyz="0 0 35"/>
+            <geometry>
+                <cylinder radius="40" length="70"/>
+            </geometry>
+        </collision>
+    </link>
+    <joint name="joint8" type="prismatic">
+        <parent link="link7"/>
+        <child link="link8"/>
+        <origin xyz="0 0 70"/>
+        <axis xyz="0 0 1"/>
+        <limit effort="5" velocity="2.0" lower="-40" upper="0"/>
+    </joint>
+    <link name="link8">
+        <visual>
+            <origin xyz="0 0 20"/>
+            <geometry>
+                <box size="40 40 40"/>
+            </geometry>
+            <material name="blue5">
+                <color rgba="1 0 1 1"/>
+            </material>
+        </visual>
+        <collision>
+            <origin xyz="0 0 20"/>
+            <geometry>
+                <box size="40 40 40"/>
+            </geometry>
+        </collision>
+    </link>
+    <joint name="joint9" type="prismatic">
+        <parent link="link8"/>
+        <child link="link9"/>
+        <origin xyz="0 -12.5 40" rpy="0 -1.57 0"/>
+        <axis xyz="0 1 0"/>
+        <limit effort="5" velocity="2.0" lower="-27.5" upper="0"/>
+    </joint>
+    <joint name="joint10" type="prismatic">
+        <parent link="link8"/>
+        <child link="link10"/>
+        <origin xyz="0 12.5 40" rpy="0 -1.57 0"/>
+        <axis xyz="0 1 0"/>
+        <limit effort="5" velocity="2.0" lower="0" upper="27.5"/>
+        <mimic joint="joint9" multiplier="-1"/>
+    </joint>
+    <link name="link9">
+        <visual>
+            <origin xyz="25 0 0"/>
+            <geometry>
+                <box size="50 5 50"/>
+            </geometry>
+            <material name="blue6">
+                <color rgba="1 0.2 1 1"/>
+            </material>
+        </visual>
+        <collision>
+            <origin xyz="25 0 0"/>
+            <geometry>
+                <box size="50 5 50"/>
+            </geometry>
+        </collision>
+    </link>
+    <link name="link10">
+        <visual>
+            <origin xyz="25 0 0"/>
+            <geometry>
+                <box size="50 5 50"/>
+            </geometry>
+            <material name="blue6">
+                <color rgba="1 0.2 1 1"/>
+            </material>
+        </visual>
+        <collision>
+            <origin xyz="25 0 0"/>
+            <geometry>
+                <box size="50 5 50"/>
+            </geometry>
+        </collision>
+    </link>
+    <joint name="jointTCP" type="fixed">
+        <parent link="link7"/>
+        <child link="TCP"/>
+        <origin xyz="0 0 170" rpy="0 -1.57 0"/>
+    </joint>
+    <link name="TCP"/>
+</robot>

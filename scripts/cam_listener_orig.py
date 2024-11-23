@@ -5,7 +5,6 @@ import cv2
 from cv_bridge import CvBridge,CvBridgeError
 from sensor_msgs.msg import Image
 import numpy as np
-from math import sqrt
 
 bridge = CvBridge()
 
@@ -34,14 +33,12 @@ def image_callback(data):
 
     hsv = cv2.cvtColor(frame,cv2.COLOR_BGR2HSV)
 
-    for colorText, (lower, upper) in color_ranges.items():
+    for color, (lower, upper) in color_ranges.items():
         mask = cv2.inRange(hsv,np.array(lower),np.array(upper))
         contours, __ = cv2.findContours(mask,cv2.RETR_EXTERNAL,cv2.CHAIN_APPROX_SIMPLE)
         for cont in contours:
             area = cv2.contourArea(cont)
             if area > 4000:
-                dist = 1750 / sqrt(area)
-                colorText += "\n %.2f" % dist
                 #cv2.drawContours(frame,[cont],0,(0,255,0),4)
                 x,y,w,h = cv2.boundingRect(cont)
                 #midy, midx = y+h/2, x+w/2
@@ -50,7 +47,7 @@ def image_callback(data):
                 cv2.rectangle(frame, (x,y),(x+w,y+h),(0,255,0),4)
                 centerx = x + w//2 - 50
                 centery = y + h//2
-                cv2.putText(frame, colorText, (centerx,centery), cv2.FONT_HERSHEY_SIMPLEX, .5, (128,255,128), 1, cv2.LINE_AA)
+                cv2.putText(frame, color, (centerx,centery), cv2.FONT_HERSHEY_SIMPLEX, 1, (128,255,128), 1, cv2.LINE_AA)
     cv2.imshow("Video",frame)
     cv2.waitKey(1)
 
